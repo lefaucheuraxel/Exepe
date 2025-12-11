@@ -232,10 +232,7 @@ def save_result(session_id, participant_id, trial_data):
         f"block={trial_data.get('block_type','')} stimulus={trial_data.get('stimulus','')}"
     )
     # Sur Render: forcer le push synchrone pour éviter la perte de données lors de la mise en veille
-    if str(os.environ.get('AUTO_PUSH_RESULTS', '0')).lower() in ('1', 'true', 'yes'):
-        commit_results_sync(commit_message)
-    else:
-        commit_results_async(commit_message)
+    commit_results_sync(commit_message)
 
 def commit_results_sync(message: str = 'Update results.csv', force_commit: bool = False):
     """Effectue un git add/commit/push de data/results.csv de manière SYNCHRONE (bloquante).

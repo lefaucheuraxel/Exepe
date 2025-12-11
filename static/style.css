@@ -395,6 +395,38 @@ body.colored-background .choice-btn {
     margin: 30px 0;
 }
 
+/* Barre de progression d'envoi */
+.progress-wrapper {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+}
+
+.progress-bar {
+    width: 100%;
+    max-width: 600px;
+    height: 16px;
+    background: #ecf0f1;
+    border: 1px solid #bdc3c7;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    transition: width 0.2s ease;
+}
+
+.progress-text {
+    min-width: 60px;
+    text-align: right;
+    font-weight: bold;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .screen {

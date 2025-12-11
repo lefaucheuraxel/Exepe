@@ -521,11 +521,29 @@ class ExperimentApp {
             btn.textContent = '📤 Envoi en cours...';
             btn.disabled = true;
             
+            // Activer la barre de progression
+            const progressWrap = document.getElementById('send-progress');
+            const progressBar = document.getElementById('send-progress-bar');
+            const progressText = document.getElementById('send-progress-text');
+            if (progressWrap && progressBar && progressText) {
+                progressWrap.style.display = 'flex';
+                progressBar.style.width = '0%';
+                progressText.textContent = '0%';
+            }
+            
             console.log('📤 Envoi des résultats:', this.results);
             
             // Envoyer tous les résultats stockés localement avec plus de détails
             let successCount = 0;
-            for (let result of this.results) {
+            const total = this.results.length || 0;
+            if (total === 0) {
+                if (progressBar && progressText) {
+                    progressBar.style.width = '100%';
+                    progressText.textContent = '100%';
+                }
+            }
+            for (let i = 0; i < total; i++) {
+                const result = this.results[i];
                 try {
                     const response = await fetch('/save_result', {
                         method: 'POST',
@@ -554,6 +572,12 @@ class ExperimentApp {
                     }
                 } catch (error) {
                     console.error('❌ Erreur réseau:', error);
+                }
+                // Mettre à jour la progression
+                if (progressBar && progressText && total > 0) {
+                    const percent = Math.round(((i + 1) / total) * 100);
+                    progressBar.style.width = `${percent}%`;
+                    progressText.textContent = `${percent}%`;
                 }
             }
             
