@@ -11,6 +11,7 @@ import subprocess
 import base64
 import requests
 
+#Flask
 app = Flask(__name__)
 app.secret_key = 'experience_perception_mots_couleurs_2024'
 
